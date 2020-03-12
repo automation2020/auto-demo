@@ -3,32 +3,17 @@ package pages;
 import helpers.DriverSetUp;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.WhenPageOpens;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-@DefaultUrl("https://www.ebay.com/")
+@DefaultUrl("https://www.olx.com.co/")
 public class HomePage extends AbstractPage {
 
-    @FindBy(xpath = "//input[@class='gh-tb ui-autocomplete-input']")
-    private WebElement searchInput;
-    @FindBy(xpath = "//input[@id='gh-btn']")
-    private WebElement searchButton;
-    @FindBy(xpath = "//*[@id='gh-eb-Geo-a-default']//span")
-    private WebElement currentLanguageButton;
-    @FindBy(xpath = "//*[@class='gh-menu']//*[@class='gh-submenu gh-eb-o']//li[@lang='en-US']")
-    private WebElement englishLanguageOption;
+    @FindBy(xpath = "//*[@data-aut-id='homeImage']")
+    private WebElement homeImage;
 
-    public void searchByKeyword(String keyword){
-        searchInput.sendKeys(keyword);
-        searchButton.click();
-    }
-
-    public void changeLanguageToEnglish(){
-        if(!currentLanguageButton.getText().contains("English")){
-            currentLanguageButton.click();
-            englishLanguageOption.click();
-        }
-    }
+    public SearchBar searchBar;
 
     @Override
     public void openApplication() {
@@ -38,6 +23,6 @@ public class HomePage extends AbstractPage {
 
     @WhenPageOpens
     protected void waitForPageToBeReady() {
-        element(searchInput).waitUntilVisible();
+        element(homeImage).waitUntilVisible();
     }
 }
