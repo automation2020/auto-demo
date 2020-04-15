@@ -2,10 +2,9 @@ package pages;
 
 import helpers.DriverSetUp;
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.annotations.WhenPageOpens;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.components.SearchBar;
 
 @DefaultUrl("https://www.olx.com.co/")
 public class HomePage extends AbstractPage {
@@ -19,10 +18,5 @@ public class HomePage extends AbstractPage {
     public void openApplication() {
         this.setDriver(DriverSetUp.getWebDriver());
         open();
-    }
-
-    @WhenPageOpens
-    protected void waitForPageToBeReady() {
-        element(homeImage).waitUntilVisible();
     }
 }
