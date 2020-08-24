@@ -4,6 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.hamcrest.CoreMatchers;
 import pages.HomePage;
 import pages.ResultsPage;
@@ -39,12 +40,16 @@ public class SearchSteps {
 
     @Then("^(\\d+) first results should include the keyword \"([^\"]*)\"$")
     public void firstResultsShouldIncludeTheKeyword(int resultsToAssert, String keyword) {
+        SoftAssertions softly = new SoftAssertions();
         for(int i=0;i<resultsToAssert;i++){
-            assertThat("Results should include the title",
-                    resultsPage.getResultTitleByIndex(i).toLowerCase()
-                            .contains(keyword.toLowerCase()),
-                    CoreMatchers.is(true));
+            softly.assertThat(resultsPage.getResultTitleByIndex(i).toLowerCase()
+                    .contains(keyword.toLowerCase()))
+                    .as(String.format("Result: \"%s\" should include \"%s\" in the title",
+                            resultsPage.getResultTitleByIndex(i).toLowerCase(),
+                            keyword))
+                    .isEqualTo(true);
         }
+        softly.assertAll();
     }
 
     @And("^(\\d+) first results should be in ascendant price order$")

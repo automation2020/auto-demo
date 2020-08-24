@@ -16,7 +16,7 @@ public class HomePage extends AbstractPage {
 
     @Override
     public void openApplication() {
-        this.setDriver(DriverSetUp.getWebDriver());
+        this.setDriver(new DriverSetUp().getWebDriver());
         open();
     }
 }

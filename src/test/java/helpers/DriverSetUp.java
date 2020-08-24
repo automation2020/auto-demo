@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.concurrent.TimeUnit;
+
 public class DriverSetUp {
     private static WebDriver webDriver;
     @Before
@@ -21,10 +23,11 @@ public class DriverSetUp {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability(FirefoxDriver.PROFILE, geoDisabled);
         webDriver = new FirefoxDriver(capabilities);
+        webDriver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
     }
 
-    public static WebDriver getWebDriver(){
-        return webDriver;
+    public WebDriver getWebDriver(){
+        return this.webDriver;
     }
 
     @After
